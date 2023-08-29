@@ -8,11 +8,11 @@
 
                 <strong>
                     {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                        Error<br />
+                        Error
                     {% else %}
                         {{ message.tags | title }}
                     {% endif %}
-                </strong>
+                </strong><br />
 
                 {{ message }}
             </div>
