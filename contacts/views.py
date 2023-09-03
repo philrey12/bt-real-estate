@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from .models import Contact
+from decouple import config
 
 def contact(request):
     if request.method == 'POST':
@@ -26,14 +27,14 @@ def contact(request):
         contact = Contact(listing_id=listing_id, listing=listing, name=name, email=email, phone=phone, message=message, user_id=user_id)
         contact.save()
 
-        # # Send email
-        # send_mail(
-        #     'Property Listing Inquiry',
-        #     'There has been inquiry for ' + listing + '. Sign into the admin panel for more info',
-        #     '(host email here)',
-        #     [realtor_email, '(host email here)'],
-        #     fail_silently=False
-        # )
+        # Send email
+        send_mail(
+            'Property Listing Inquiry',
+            'There has been inquiry for ' + listing + '. Sign into the admin panel for more info',
+            config('EMAIL_HOST_USER'),
+            [realtor_email, config('EMAIL_HOST_USER')],
+            fail_silently=False
+        )
 
         messages.success(request, 'Inquiry sent, a realtor will get back to you soon')
         return redirect('/listings/' + listing_id)
