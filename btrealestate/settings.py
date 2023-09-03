@@ -29,7 +29,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
+allowed_hosts = config('ALLOWED_HOSTS')
+ALLOWED_HOSTS = [allowed_hosts]
 
 
 # Application definition
@@ -94,7 +95,6 @@ DATABASES = {
 }
 
 db_url = config('DB_URL')
-
 DATABASES['default'] = dj_database_url.parse(db_url)
 
 
